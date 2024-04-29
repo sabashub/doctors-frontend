@@ -1,9 +1,9 @@
 <div class="calendar-container">
   <h2>{{ currentMonth }} {{ currentYear }}</h2>
-  <!-- Week switcher -->
+
   
   <br>
-  <!-- Calendar grid -->
+
   <table class="calendar-grid">
     <tr>
       <th style="background-color: #ECF2F8">
@@ -31,6 +31,7 @@
 <div *ngIf="selectedAppointment" class="action-menu">
   <h3>ჯავშანი</h3>
   <p><strong>პრობლემა:</strong> {{ selectedAppointment.problem }}</p>
+  <p><strong>დრო:</strong>{{selectedAppointment.date}}</p>
 </div>
 
 <div class="buttons">

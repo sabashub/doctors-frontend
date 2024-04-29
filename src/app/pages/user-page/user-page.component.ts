@@ -30,7 +30,7 @@ export class UserPageComponent implements OnInit {
 
   openForgetPasswordDialog(): void {
     const dialogRef = this.dialog.open(ForgetPasswordComponent, {
-      width: '400px', height: '300px'
+      width: '700px', height: '550px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -38,6 +38,3 @@ export class UserPageComponent implements OnInit {
     });
   }
 }
-  
-
-

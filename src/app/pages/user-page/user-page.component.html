@@ -4,12 +4,12 @@
         <img src="../../../assets/user.png" class="user_image" />
         <p style="font-size: 18px; font-weight: 400; color: #18A4E1;">მომხმარებელი</p>
         <h4>პირადი ნომერი:</h4>
-        <p>{{ user?.privateNumber }}</p>
+        <p class="dynamic-data">{{ user?.privateNumber }}</p>
         <h4>Email:</h4>
-        <p>{{ user?.email }}</p>
-        <button (click)="openForgetPasswordDialog()">პაროლის შეცვლა</button>
+        <p class="dynamic-data">{{ user?.email }}</p>
+        <button class="forget-password-button" (click)="openForgetPasswordDialog()">პაროლის შეცვლა</button>
         <h4>ჩემი ჯავშანი</h4>
-        <p>(1)</p>
+        <p class="dynamic-data">(1)</p>
     </div>
     <app-user-calendar></app-user-calendar>
 </div>

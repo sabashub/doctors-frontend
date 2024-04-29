@@ -1,5 +1,5 @@
 .input_field {
-  width: 100%;
+  width: 90%;
   height: 50px;
   border-radius: 50px;
   margin-top: 10px;
@@ -25,4 +25,8 @@ h2 {
   margin-left: 20px;
   margin-bottom: 20px;
   border: none;
+}
+
+.login_container {
+  overflow: hidden;
 }

@@ -38,7 +38,7 @@ export class ForgetPasswordComponent implements OnInit{
 
   sendResetCode(): void {
     if (!this.user?.email) {
-      //alert('User email not found. Please try again later.');
+      alert('User email not found. Please try again later.');
       return;
     }
 
@@ -46,7 +46,7 @@ export class ForgetPasswordComponent implements OnInit{
     this.http.post<any>('http://localhost:5005/api/Account/forgot-password', { email: this.user.email }).subscribe(
       (response: any) => {
         // Handle success response, if needed
-        alert(response.message);
+        //alert(response.message);
       },
       (error: any) => {
         // Handle error response, if needed
@@ -86,7 +86,7 @@ export class ForgetPasswordComponent implements OnInit{
   resetPassword(): void {
     // Validate new password fields
     if (!this.newPassword || !this.repeatNewPassword) {
-      alert('Please enter your new password and repeat it.');
+     // alert('Please enter your new password and repeat it.');
       return;
     }
 
