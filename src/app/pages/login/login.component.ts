@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit{
   errorMessages: string[] = [];
   constructor( private appService:  AppService, private formBuilder: FormBuilder, 
     private router: Router, private activatedRoute: ActivatedRoute, public dialogRef: MatDialogRef<LoginComponent>, public dialog: MatDialog) {
+
    this.appService.user$.pipe(take(1)).subscribe({
     next: (user: User | null) => {
       if(user){

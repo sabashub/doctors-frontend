@@ -11,19 +11,20 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { DoctorPageComponent } from './pages/doctor-page/doctor-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { DoctorDetailsComponent } from './pages/doctor-details/doctor-details.component';
+import { AuthGuard } from './auth.guard';
 export const routes: Routes = [
   
-  {path: 'doctors', component: MainPageComponent },
-  {path: '', component: MainPageComponent },
-  {path: 'registration', component: RegistrationComponent },
-  {path: 'register-doctor', component: RegisterDoctorComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'user', component: UserPageComponent},
-  {path: 'doctor', component: DoctorPageComponent},
-  {path: 'admin', component: AdminComponent},
-  {path: 'doctor/:id', component: DoctorDetailsComponent },
-  {path: '**', redirectTo: '/' }
-  
+  { path: 'doctors', component: DoctorsComponent,},
+  { path: '', component: MainPageComponent,  },
+  { path: 'registration', component: RegistrationComponent, },
+  { path: 'register-doctor', component: RegisterDoctorComponent, },
+  { path: 'login', component: LoginComponent },
+  { path: 'user', component: UserPageComponent,  },
+  { path: 'doctor', component: DoctorPageComponent, },
+  { path: 'admin', component: AdminComponent, },
+  { path: 'doctor/:id', component: DoctorDetailsComponent, },
+  { path: '**', redirectTo: '/' }
+
  
 ];
 @NgModule({

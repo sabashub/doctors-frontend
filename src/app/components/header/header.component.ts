@@ -18,7 +18,7 @@ import { User } from '../../models/User';
 
 export class HeaderComponent implements OnInit{
 
-  links = [{url:'doctors', label:'ექიმები'}, {url: 'register-doctor', label: 'კლინიკები'}, {url: 'Third', label: 'ანოტაციები'},{url: 'Third', label: 'აქციები'},{url: 'Third', label: 'სერვისები'},{url: 'Third', label: 'მედიკამენტები'},{url: 'Third', label: 'კონტაქტი'},];
+  links = [{url:'', label:'ექიმები'}, {url: '', label: 'კლინიკები'}, {url: 'Third', label: 'ანოტაციები'},{url: 'Third', label: 'აქციები'},{url: 'Third', label: 'სერვისები'},{url: 'Third', label: 'მედიკამენტები'},{url: 'Third', label: 'კონტაქტი'},];
   activeLink = this.links[0];
   user: User | null = null
   logoUrl: string = '';
