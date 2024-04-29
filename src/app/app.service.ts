@@ -107,9 +107,10 @@ export class AppService {
    
   }
 
- getDoctors(): Observable<Doctor[]> {
-    return this.http.get<Doctor[]>(`${environment.apiUrl}/api/doctor`);
-  }
+  getDoctors(query?: string): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${environment.apiUrl}/api/doctor?${query}`);
+}
+
 
   deleteDoctorById(id: number): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/api/doctor/${id}`);

@@ -45,6 +45,8 @@
         <span style="color: red;" *ngIf="submitted && registerForm.get('password')?.hasError('required')">პაროლი აუცილებელია</span>
         <span style="color: red;" *ngIf="submitted && registerForm.get('password')?.hasError('pattern')">პაროლი არ არის სწორი</span>
         </div>
+        <label for="verification_code">verification code</label>
+        <input type="button" id="verification_code"/>
         <div class="input-container">
           <button class="register-button" type="submit">რეგისტრაცია</button>
         </div>
@@ -53,5 +55,6 @@
   
      
     </form>
+    
   </div>
   

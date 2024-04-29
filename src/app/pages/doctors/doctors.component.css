@@ -1,11 +1,10 @@
 .doctor_card_container {
-  width: 70%;
-  display: flex;
-  flex-wrap: wrap;
-
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 40px;
   margin-left: 30px;
-  height: 800px;
+  position: relative;
 }
 .card {
   width: 360px;
@@ -75,4 +74,21 @@ p {
   border-radius: 25px;
   margin-top: 40px;
   cursor: pointer;
+}
+.see_more_button {
+  position: absolute;
+  bottom: -28px;
+  right: 0;
+  background: transparent;
+  border: 0px;
+  cursor: pointer;
+}
+.see_more_button::after {
+  content: ""; /* Add content */
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 40%;
+  width: 80px;
+  height: 1px;
+  background-color: #18a4e1;
 }

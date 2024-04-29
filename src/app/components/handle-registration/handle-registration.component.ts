@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from '../../pages/registration/registration.component';
 import { RegisterDoctorComponent } from '../../pages/register-doctor/register-doctor.component';
-import { RegisterAdminComponent } from '../../components/register-admin/register-admin.component';
+import { RegisterAdminComponent } from '../register-admin/register-admin.component';
 @Component({
   selector: 'app-handle-registration',
   standalone: true,
