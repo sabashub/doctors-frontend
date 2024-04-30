@@ -4,13 +4,13 @@
         <button class="action_button" (click)="showRegistration(2, 2)" [class.active_button]="activeButton === 2">ექიმი</button>
         <button class="action_button" (click)="showRegistration(3, 3)" [class.active_button]="activeButton === 3">ადმინი</button>
       </div>
-      <div *ngIf="showUserRegistration">
+      <div *ngIf="showUserRegistration" >
             <app-registration></app-registration>
       </div>
-      <div *ngIf="showDoctorRegistration">
+      <div *ngIf="showDoctorRegistration" class="registration">
         <app-register-doctor></app-register-doctor>
       </div>
-      <div *ngIf="showAdminRegistration">
+      <div *ngIf="showAdminRegistration" class="registration">
        <app-register-admin></app-register-admin>
       </div>
 </div>

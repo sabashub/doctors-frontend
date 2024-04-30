@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from '../../models/Doctor';
 import { AppService } from '../../app.service';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { DoctorCalendarComponent } from '../doctor-calendar/doctor-calendar.component';
@@ -15,7 +16,7 @@ export class DoctorsGridComponent implements OnInit{
   doctors: Doctor[] = [];
   selectedDoctor: Doctor | null = null;
   doctorId: any = 0
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,    private http: HttpClient,) { }
 
   ngOnInit(): void {
     this.fetchDoctors();
@@ -64,6 +65,29 @@ export class DoctorsGridComponent implements OnInit{
     hideDoctorDetails(): void {
       this.selectedDoctor = null;
     }
+
+
+  sendResetCode(): void {
+    if (!this.selectedDoctor?.email) {
+      alert('User email not found. Please try again later.');
+      return;
+    }
+
+    const newPassword = prompt('enter new password')
+
+    // Make a POST request to initiate password reset
+    this.http.post<any>('http://localhost:5005/api/Doctor/forgot-password', { email: this.selectedDoctor.email, newPassword: newPassword }).subscribe(
+      (response: any) => {
+        // Handle success response, if needed
+        //alert(response.message);
+      },
+      (error: any) => {
+        // Handle error response, if needed
+        console.error(error);
+       
+      }
+    );
+  }
     
   
   

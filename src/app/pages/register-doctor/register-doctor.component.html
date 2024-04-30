@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>ექიმის რეგისტრაცია</h2>
+  <h2 style="color: #18A4E1">ექიმის რეგისტრაცია</h2>
   <form (ngSubmit)="onSubmit()" class="registration-form">
     <div class="form-group">
       <label>სახელი</label>
@@ -29,11 +29,25 @@
     </div>
     <div class="form-group">
       <label>ფოტო სურათი</label>
-      <input type="file" (change)="onImageChange($event)" name="image" required class="input_file">
+      <input type="file" hidden (change)="onImageChange($event)" name="image" required class="input_file" #imageInput>
+      <div style="cursor: pointer; position: relative; width: 342px; height: 52px; border: 1px solid rgb(236, 242, 248); border-radius: 50px;" (click)="imageInput.click()">
+        <img src="../../../assets/upload-image-icon.svg" class="upload-image-icon" />
+        <p style="margin: 15px 0 0 20px;" *ngIf="model.image">{{ model.image.name }}</p>
+      </div>
     </div>
+
     <div class="form-group">
       <label>CV</label>
-      <input type="file" (change)="onCVChange($event)" name="cv" required class="input_file">
+      <input type="file" hidden (change)="onCVChange($event)" name="cv" required class="input_file" #cvInput>
+      <div style="cursor: pointer; position: relative; width: 342px; height: 52px; border: 1px solid rgb(236, 242, 248); border-radius: 50px;" (click)="cvInput.click()">
+        <img src="../../../assets/upload-cv.svg" class="upload-image-icon" />
+        <p style="margin: 15px 0 0 20px;" *ngIf="model.cv">{{ model.cv.name }}</p> 
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Achievements</label>
+      <textarea class="form-control" [(ngModel)]="model.achievements" name="achievements" required></textarea>
     </div>
     <button type="submit" class="add_button" >რეგისტრაცია</button> 
   </form>

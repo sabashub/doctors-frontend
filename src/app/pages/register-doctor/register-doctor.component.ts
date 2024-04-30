@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from '../../models/Category';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-doctor',
   standalone: true,
@@ -15,7 +16,7 @@ export class RegisterDoctorComponent  implements OnInit{
   model: any = {};
   categories: Category[] = []
 
-  constructor(private http: HttpClient, private appService: AppService) { }
+  constructor(private http: HttpClient, private appService: AppService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadCategories();
@@ -41,6 +42,7 @@ export class RegisterDoctorComponent  implements OnInit{
     formData.append('email', this.model.email);
     formData.append('password', this.model.password);
     formData.append('privateNumber', this.model.privateNumber);
+    formData.append('achievements', this.model.achievements);
     formData.append('category', this.model.category);
     formData.append('image', this.model.image);
     formData.append('cv', this.model.cv);
@@ -52,11 +54,14 @@ export class RegisterDoctorComponent  implements OnInit{
         console.log('Doctor registered successfully:', data);
         // Clear the form after successful registration
         this.model = {};
+
+    this.router.navigateByUrl('/admin');
       },
       error => {
         console.error('Error registering doctor:', error);
       }
     );
+
   }
 
   onImageChange(event: any) {

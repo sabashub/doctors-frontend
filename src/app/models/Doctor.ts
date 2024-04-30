@@ -9,4 +9,5 @@ export interface Doctor{
     imageUrl: string;
     cvUrl: string;
     Type: string;
+    achievements: string
 }

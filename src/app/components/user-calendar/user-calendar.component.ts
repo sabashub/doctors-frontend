@@ -116,7 +116,8 @@ export class UserCalendarComponent implements OnInit{
       console.log('User:', this.user);
       this.userId = user?.id
       this.getAppointmentsByUserId(user?.id)
-    }); 
+    });
+    
   }
   getAppointmentsByUserId(userId: any): void {
     const apiUrl = `http://localhost:5005/api/Appointment/getByUserId/${userId}`;

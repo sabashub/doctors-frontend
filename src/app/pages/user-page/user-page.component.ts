@@ -19,14 +19,35 @@ import { MatDialog } from '@angular/material/dialog';
 export class UserPageComponent implements OnInit {
   user: User | null = null;
   passwordResetEmail: string = ''; // Variable to hold the email for password reset
-
+  appointments: any[] = []
+  userId: string = ''
   constructor(private appService: AppService, private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.appService.user$.subscribe(user => {
       this.user = user;
+      this.userId = this.user?.id
+      console.log(this.user)
+      this.getAppointmentsByUserId(this.userId)
     });
   }
+  getAppointmentsByUserId(userId: any): void {
+    const apiUrl = `http://localhost:5005/api/Appointment/getByUserId/${userId}`;
+    
+    this.http.get<any[]>(apiUrl).subscribe(
+      (response) => {
+        this.appointments = response.map(appointment => ({
+          ...appointment,
+          date: new Date(appointment.date)
+        }));
+        console.log('Appointments:', this.appointments);
+      },
+      (error) => {
+        console.error('Error fetching appointments:', error);
+      }
+    );
+  }
+  
 
   openForgetPasswordDialog(): void {
     const dialogRef = this.dialog.open(ForgetPasswordComponent, {

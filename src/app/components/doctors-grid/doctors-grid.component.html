@@ -3,6 +3,7 @@
     <h2>Doctors</h2>
   </div>
   <!-- Display the grid only if selectedDoctor is null -->
+<div class="cont">
   <div *ngIf="!selectedDoctor">
     <div class="row header-row">
       <div class="column">სახელი</div>
@@ -11,53 +12,82 @@
       <div class="column">რეიტინგი</div>
       <div class="column"></div>
     </div>
-    <div class="row" *ngFor="let doctor of doctors" (click)="showDoctorDetails(doctor)">
-      <div class="column">{{ doctor.firstName }} {{doctor.lastName}}</div>
+    <div
+      class="row"
+      *ngFor="let doctor of doctors"
+      (click)="showDoctorDetails(doctor)"
+    >
+      <div class="column">{{ doctor.firstName }} {{ doctor.lastName }}</div>
       <div class="column">{{ doctor.category }}</div>
-      <div class="column"><img [src]="doctor.imageUrl" alt="Doctor Image" class="doctor_thumbnail"></div>
+      <div class="column">
+        <img
+          [src]="doctor.imageUrl"
+          alt="Doctor Image"
+          class="doctor_thumbnail"
+        />
+      </div>
       <div class="column">⭐️⭐️⭐️</div>
       <div class="column">
-        <button class="edit_button"><img src="../../../assets/editButton.png" /></button>
-        <button (click)="deleteDoctor(doctor)" class="delete_button"><img src="../../../assets/deleteButton.png" /></button>
+        <button class="edit_button">
+          <img src="../../../assets/editButton.png" />
+        </button>
+        <button (click)="deleteDoctor(doctor)" class="delete_button">
+          <img src="../../../assets/deleteButton.png" />
+        </button>
       </div>
     </div>
   </div>
   <!-- Display the card only if selectedDoctor is not null -->
-  <div class="doctor-details-container" *ngIf="selectedDoctor">
+  <div class="doctor-details-container"  *ngIf="selectedDoctor">
     <div class="doctor_details">
-      
-      <div class="doctor_detail_about">
-        <img [src]="selectedDoctor.imageUrl" class="doctor_image"/>
-        
-        <p class="doctor_name">{{ selectedDoctor.firstName }} {{ selectedDoctor.lastName }}</p>
-        <p style="color: #053354; font-size: 14px; font-weight: 400;">ექიმი</p>
-        <p> {{ selectedDoctor.category }}</p>
-        <p>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</p>
-      </div>
-      <div class="doctor_detail_about">
-        <div>
-          <h4>პირადი ნომერი:</h4>
-          <p>{{selectedDoctor.privateNumber}}</p>
+      <div class="doctor-inf border" >
+        <div class="doctor-info" >
+          <img
+            [src]="selectedDoctor.imageUrl"
+            class="doctor-image"
+            alt="User Image"
+          />
+          <div class="doctor-personal-data">
+            <h1>
+              {{ selectedDoctor?.firstName }} {{ selectedDoctor?.lastName }}
+            </h1>
+            <p>{{ selectedDoctor?.category }}</p>
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+              <img src="../../../assets/star-icon.svg" />
+            </ng-container>
+          </div>
         </div>
-        <div>
-          <h4>Email:</h4>
-          <p>{{selectedDoctor.email}}</p>
+        <div class="doctor_detail_about">
+          <div>
+            <h4>პირადი ნომერი:</h4>
+            <p>{{ selectedDoctor.privateNumber }}</p>
+          </div>
+          <div>
+            <h4>Email:</h4>
+            <p>{{ selectedDoctor.email }}</p>
+          </div>
+          <div>
+            <h4 style="cursor: pointer" (click)="sendResetCode()">
+              პაროლის შეცვლა
+            </h4>
+          </div>
         </div>
-        <div><h4>პაროლის შეცვლა</h4></div>
-        
-      </div>
-      <div class="doctor_detail_about">
-        <div>
-          <h4>დაჯავშნილია: </h4>
-          <p>(20)</p>
+        <div class="doctor_detail_about">
+          <div style="transform: translateY(-75px)">
+            <h4>დაჯავშნილია:</h4>
+            <p>(20)</p>
+          </div>
         </div>
-        
       </div>
-      
-      <app-doctor-calendar [doctorId] = "doctorId" style="margin-top: 100px;"></app-doctor-calendar>
-     
+
+      <div style="scale: 0.8; transform: translateY(-100px)">
+        <app-doctor-calendar
+          [doctorId]="doctorId"
+          style="scale: 0, 5"
+        ></app-doctor-calendar>
+      </div>
     </div>
     <button (click)="hideDoctorDetails()">Back to Grid</button>
-    
   </div>
+</div>
 </div>

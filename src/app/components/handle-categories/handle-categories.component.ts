@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../../app.service';
 import { Category } from '../../models/Category';
+import { Doctor } from '../../models/Doctor';
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-handle-categories',
@@ -16,11 +18,24 @@ export class HandleCategoriesComponent implements OnInit{
   newCategory: string = '';
   editedCategory: Category | null = null;
   editedCategoryIndex: number = -1;
-
+  doctors: any = []
   constructor(private appService: AppService) {}
 
   ngOnInit(): void {
     this.loadCategories();
+    this.fetchDoctors()
+  }
+
+  fetchDoctors(clicked = true): void {
+    this.appService.getDoctors(clicked ? '' : 'amount=6').subscribe(
+      (doctors: Doctor[]) => {
+        this.doctors = doctors;
+        
+      },
+      (error) => {
+        console.error('Error fetching doctors:', error);
+      }
+    );
   }
 
   loadCategories(): void {
@@ -39,6 +54,7 @@ export class HandleCategoriesComponent implements OnInit{
   }
 
   editCategory(category: Category): void {
+    
     const newName = prompt('Enter the new category name:', category.name);
     if (newName !== null) {
       category.name = newName;
@@ -46,12 +62,21 @@ export class HandleCategoriesComponent implements OnInit{
         this.loadCategories();
       });
     }
-  }
+  } 
 
-  deleteCategory(categoryId: number): void {
-    this.appService.deleteCategory(categoryId).subscribe(() => {
-      this.loadCategories();
-    });
-  }
+  deleteCategory(category: Category): void {
+    // Check if the category is associated with any doctor
+    const isCategoryUsedByDoctor = this.doctors.some((doctor: any) => doctor.category === category.name);
+  
+    if (isCategoryUsedByDoctor) {
+      // Display an alert informing the user that the category is used by a doctor
+      alert('This category is used by a doctor and cannot be deleted.');
+    } else {
+      // If the category is not associated with any doctor, proceed with deletion
+      this.appService.deleteCategory(category.id).subscribe(() => {
+        this.loadCategories();
+      });
+    }
+}
 
 }

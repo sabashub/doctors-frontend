@@ -5,6 +5,8 @@ import { AppService } from '../../app.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/User';
+import { Doctor } from '../../models/Doctor';
+
 
 @Component({
   selector: 'app-doctor-calendar',
@@ -24,6 +26,7 @@ export class DoctorCalendarComponent implements OnInit {
   backgroundColor: string = '';
   showDialog = false;
   user: User | null = null;
+  doctor: Doctor | null = null;
 
   constructor(
     public dialog: MatDialog,
@@ -41,6 +44,7 @@ export class DoctorCalendarComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getAppointmentsByDoctorId();
+    this.fetchDoctorDetails(this.doctorId.toString());
   }
 
   isMyAppointment(day: number, hour: number): boolean {
@@ -63,6 +67,18 @@ export class DoctorCalendarComponent implements OnInit {
     this.appService.user$.subscribe((user) => {
       this.user = user;
     });
+  }
+
+  fetchDoctorDetails(doctorId: string): void {
+    this.appService.getDoctorById(doctorId).subscribe(
+      (doctor: Doctor) => {
+        this.doctor = doctor;
+        console.log('Doctor:', this.doctor);
+      },
+      (error) => {
+        console.error('Error fetching doctor details:', error);
+      }
+    );
   }
 
   getBackgroundColor(day: string): string {
@@ -118,10 +134,10 @@ export class DoctorCalendarComponent implements OnInit {
   }
 
   getAppointmentsByDoctorId(): void {
-    const apiUrl = `http://localhost:5005/api/Appointment/getByDoctorId/${this.doctorId}`; 
+    const apiUrl = `http://localhost:5005/api/Appointment/getByDoctorId/${this.doctorId}`;
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {
-        
+        // Parse date strings into Date objects
         this.appointments = response.map((appointment) => ({
           ...appointment,
           date: new Date(appointment.date),
@@ -134,10 +150,10 @@ export class DoctorCalendarComponent implements OnInit {
     );
   }
 
-  // isWeekend(day: number): boolean {
-  //   const weekDayIndex = day % 7; // Calculate the day index within the week
-  //   return weekDayIndex === 3 || weekDayIndex === 4; // Saturday is 5, Sunday is 6
-  // }
+  isWeekend(day: number): boolean {
+    const weekDayIndex = day % 7; // Calculate the day index within the week
+    return weekDayIndex === 3 || weekDayIndex === 4; // Saturday is 5, Sunday is 6
+  }
 
   openDialog(hour: number, day: number): void {
     if (!this.isAppointmentScheduled(day, hour)) {
@@ -160,10 +176,9 @@ export class DoctorCalendarComponent implements OnInit {
       }
       // Reset the flag after processing
       this.showDialog = false;
-    } 
-    // else if (this.isWeekend(day)) {
-    //   console.error('Cannot book appointments on weekend days');
-    // }
+    } else if (this.isWeekend(day)) {
+      console.error('Cannot book appointments on weekend days');
+    }
   }
 
   isAppointmentScheduled(day: number, hour: number): boolean {

@@ -5,11 +5,12 @@ import { Doctor } from '../../models/Doctor';
 import { DoctorCalendarComponent } from '../../components/doctor-calendar/doctor-calendar.component';
 //import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { CategoryComponent } from '../../components/category/category.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-details',
   standalone: true,
-  imports: [DoctorCalendarComponent, CategoryComponent, ],
+  imports: [DoctorCalendarComponent, CategoryComponent, CommonModule ],
   templateUrl: './doctor-details.component.html',
   styleUrl: './doctor-details.component.css'
 })
@@ -18,7 +19,7 @@ export class DoctorDetailsComponent implements OnInit{
   doctor: Doctor | null = null;
   doctorNumId: number = 0
 
-  constructor(private route: ActivatedRoute, private appService: AppService) {}
+  constructor(private route: ActivatedRoute, private appService: AppService,) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
