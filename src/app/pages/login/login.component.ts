@@ -17,14 +17,14 @@ import {
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { ForgetPasswordComponent } from '../../components/forget-password/forget-password.component';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, MatDialogActions,
     MatDialogClose,
     MatDialogContent,
-    MatDialogTitle, MatFormFieldModule, MatInputModule,],
+    MatDialogTitle, MatFormFieldModule, MatInputModule, ForgetPasswordComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit{
   loginForm: FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
+  ResetPasswordForm = false
+  showLoginForm = true;
   constructor( private appService:  AppService, private formBuilder: FormBuilder, 
     private router: Router, private activatedRoute: ActivatedRoute, public dialogRef: MatDialogRef<LoginComponent>, public dialog: MatDialog) {
 
@@ -53,8 +55,10 @@ export class LoginComponent implements OnInit{
     this.loginForm = this.formBuilder.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
+      email: ['']
     });
   }
+  
 
 
 
@@ -82,5 +86,13 @@ export class LoginComponent implements OnInit{
       }
     }
   }
+  
+  openForgetPasswordDialog(){
+    this.showLoginForm = !this.showLoginForm
+    this.ResetPasswordForm = !this.ResetPasswordForm
+    
+  }
+  
+  
 
 }

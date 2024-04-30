@@ -30,6 +30,20 @@ export class CategoryComponent implements OnInit {
         }
       );
     }
+    editCategory(category: Category): void {
+      const newName = prompt('Enter the new category name:', category.name);
+      if (newName !== null) {
+        category.name = newName;
+        this.appService.updateCategory(category.id, category).subscribe(() => {
+          this.fetchCategories();
+        });
+      }
+    }
   
+    deleteCategory(categoryId: number): void {
+      this.appService.deleteCategory(categoryId).subscribe(() => {
+        this.fetchCategories();
+      });
+    }
 
 }

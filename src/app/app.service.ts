@@ -122,6 +122,7 @@ export class AppService {
     const url = `${environment.apiUrl}/api/categories/${categoryId}`;
     return this.http.put(url, updatedCategory);
   }
+
   deleteCategory(categoryId: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/api/categories/${categoryId}`);
   }

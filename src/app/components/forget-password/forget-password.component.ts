@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AppService } from '../../app.service';
 import { User } from '../../models/User';
+
 @Component({
   selector: 'app-forget-password',
   standalone: true,
@@ -12,13 +13,14 @@ import { User } from '../../models/User';
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.css'
 })
-export class ForgetPasswordComponent implements OnInit{
+export class ForgetPasswordComponent implements OnInit {
   resetCode: string = ''; // Variable to hold the reset code
   newPassword: string = ''; // Variable to hold the new password
   repeatNewPassword: string = ''; // Variable to hold the repeated new password
   errorMessage: string | null = null;
   user: User | null = null;
   resetCodeMatched: boolean = false; // Flag to indicate if the reset code matches
+  email: string = ''; // Variable to hold the input email
 
   constructor(
     private http: HttpClient,
@@ -29,21 +31,16 @@ export class ForgetPasswordComponent implements OnInit{
   ngOnInit(): void {
     this.appService.user$.subscribe(user => {
       this.user = user;
-      // Automatically send reset code when component is initialized
+      // Automatically send reset code when component is initialized if user exists
       if (user?.email) {
-        this.sendResetCode();
+        this.sendResetCode(user.email);
       }
     });
   }
 
-  sendResetCode(): void {
-    if (!this.user?.email) {
-      alert('User email not found. Please try again later.');
-      return;
-    }
-
+  sendResetCode(email: string): void {
     // Make a POST request to initiate password reset
-    this.http.post<any>('http://localhost:5005/api/Account/forgot-password', { email: this.user.email }).subscribe(
+    this.http.post<any>('http://localhost:5005/api/Account/forgot-password', { email }).subscribe(
       (response: any) => {
         // Handle success response, if needed
         //alert(response.message);
@@ -56,14 +53,9 @@ export class ForgetPasswordComponent implements OnInit{
     );
   }
 
-  checkResetCode(): void {
-    if (!this.user?.email) {
-      alert('User email not found. Please try again later.');
-      return;
-    }
-
+  checkResetCode(email: string): void {
     // Make a POST request to check if the entered code matches the sent code
-    this.http.post<any>('http://localhost:5005/api/Account/check-reset-code', { email: this.user.email, code: this.resetCode }).subscribe(
+    this.http.post<any>('http://localhost:5005/api/Account/check-reset-code', { email: email, code: this.resetCode }).subscribe(
       (response: any) => {
         // Handle success response
         if (response.codeMatched) {
@@ -86,17 +78,20 @@ export class ForgetPasswordComponent implements OnInit{
   resetPassword(): void {
     // Validate new password fields
     if (!this.newPassword || !this.repeatNewPassword) {
-     // alert('Please enter your new password and repeat it.');
+      // alert('Please enter your new password and repeat it.');
       return;
     }
-
+  
     if (this.newPassword !== this.repeatNewPassword) {
       alert('Passwords do not match. Please try again.');
       return;
     }
-
+  
+    // Determine which email to use for the reset password request
+    const emailToSend = this.user?.email ? this.user.email : this.email;
+  
     // Make a POST request to reset the password
-    this.http.post<any>('http://localhost:5005/api/Account/reset-password', { email: this.user?.email, newPassword: this.newPassword }).subscribe(
+    this.http.post<any>('http://localhost:5005/api/Account/reset-password', { email: emailToSend, newPassword: this.newPassword }).subscribe(
       (response: any) => {
         // Handle success response
         alert(response.message);
@@ -109,5 +104,36 @@ export class ForgetPasswordComponent implements OnInit{
         alert('Failed to reset password. Please try again later.');
       }
     );
+  }
+  
+
+  // Function to send verification code
+  sendVerificationCode(): void {
+    // Ensure email is provided
+    if (!this.email) {
+      alert('Please enter your email.');
+      return;
+    }
+
+    // Send reset code to the provided email
+    if (this.user?.email) {
+      // If user is logged in, use their email to send reset code
+      this.sendResetCode(this.user.email);
+    } else {
+      // If user is not logged in, use the inputted email to send reset code
+      this.sendResetCode(this.email);
+    }
+  }
+
+  checkResetCodeWithMail(): void {
+  
+  
+    // If the user is logged in and has an email, use that email
+    if (this.user?.email) {
+      this.checkResetCode(this.user.email);
+    } else {
+      // If the user is not logged in or doesn't have an email, use the inputted email
+      this.checkResetCode(this.email);
+    }
   }
 }

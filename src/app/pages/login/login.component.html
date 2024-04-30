@@ -1,27 +1,25 @@
-<h2>ავტორიზაცია</h2>
-<mat-dialog-content class="login_container">
-    <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
-    
-      <input formControlName="userName" type="text" placeholder="ელ. ფოსტა / ტელეფონის ნომერი"
-      class="input_field">
-    
+<h2 *ngIf="showLoginForm">ავტორიზაცია</h2>
+
+<app-forget-password *ngIf = "ResetPasswordForm"></app-forget-password>
+<mat-dialog-content class="login_container" *ngIf="showLoginForm">
+  <form  [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+    <input formControlName="userName" type="text" placeholder="ელ. ფოსტა / ტელეფონის ნომერი" class="input_field">
     <span style="color: red;" *ngIf="submitted && loginForm.get('userName')?.hasError('required')">
-        Username is required
+      Username is required
     </span>
     <br>
-    
-      <input formControlName="password" type="password" placeholder="პაროლი" class= "input_field">
-    
+    <input formControlName="password" type="password" placeholder="პაროლი" class="input_field">
     <span style="color: red;" *ngIf="submitted && loginForm.get('password')?.hasError('required')">
-        Password is required
+      Password is required
     </span>
     <p style="color: red;"> {{ errorMessages[0] }}</p>
   </form>
 
-    
- 
+  
 </mat-dialog-content>
+
+
 <mat-dialog-actions>
-  <button class="btn" mat-button (click)="login()">შესვლა</button>
-  <!-- <button class = "btn"mat-button mat-dialog-close>Cancel</button> -->
+  <button mat-button color="primary" (click)="openForgetPasswordDialog()">პაროლის აღდგენა</button>
+  <button class="btn" mat-button (click)="login()" *ngIf="showLoginForm">შესვლა</button>
 </mat-dialog-actions>

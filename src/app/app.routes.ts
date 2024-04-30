@@ -11,7 +11,8 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { DoctorPageComponent } from './pages/doctor-page/doctor-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { DoctorDetailsComponent } from './pages/doctor-details/doctor-details.component';
-import { AuthGuard } from './auth.guard';
+
+
 export const routes: Routes = [
   
   { path: 'doctors', component: DoctorsComponent,},

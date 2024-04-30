@@ -15,8 +15,8 @@
       <div class="column">{{ category.name }}</div> 
       
       <div class="column">
-        <button (click)="editCategory(i)" class="edit_button"><img src="../../../assets/editButton.png" /> </button> <!-- Pass index -->
-        <button (click)="deleteCategory(i, category.id)" class="delete_button"><img src="../../../assets/deleteButton.png" /></button> <!-- Pass index and category ID -->
+        <button (click)="editCategory(category)" class="edit_button"><img src="../../../assets/editButton.png" /></button>
+        <button (click)="deleteCategory(category.id)" class="delete_button"><img src="../../../assets/deleteButton.png" /></button>
       </div>
     </div>
   </div>

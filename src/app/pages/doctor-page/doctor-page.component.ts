@@ -14,10 +14,12 @@ import { DoctorCalendarComponent } from '../../components/doctor-calendar/doctor
 })
 export class DoctorPageComponent implements OnInit{
   doctor: User | null = null;
+  doctorId: any = null;
     constructor(private appService: AppService) { }
     ngOnInit(): void {
       this.appService.user$.subscribe(doctor => {
         this.doctor = doctor;
+        this.doctorId = this.doctor?.id
         console.log('User:', this.doctor);
       });
       

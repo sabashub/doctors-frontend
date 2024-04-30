@@ -118,10 +118,10 @@ export class DoctorCalendarComponent implements OnInit {
   }
 
   getAppointmentsByDoctorId(): void {
-    const apiUrl = `http://localhost:5005/api/Appointment/getByDoctorId/${this.doctorId}`; // Use backticks for string interpolation
+    const apiUrl = `http://localhost:5005/api/Appointment/getByDoctorId/${this.doctorId}`; 
     this.http.get<any[]>(apiUrl).subscribe(
       (response) => {
-        // Parse date strings into Date objects
+        
         this.appointments = response.map((appointment) => ({
           ...appointment,
           date: new Date(appointment.date),
@@ -134,10 +134,10 @@ export class DoctorCalendarComponent implements OnInit {
     );
   }
 
-  isWeekend(day: number): boolean {
-    const weekDayIndex = day % 7; // Calculate the day index within the week
-    return weekDayIndex === 3 || weekDayIndex === 4; // Saturday is 5, Sunday is 6
-  }
+  // isWeekend(day: number): boolean {
+  //   const weekDayIndex = day % 7; // Calculate the day index within the week
+  //   return weekDayIndex === 3 || weekDayIndex === 4; // Saturday is 5, Sunday is 6
+  // }
 
   openDialog(hour: number, day: number): void {
     if (!this.isAppointmentScheduled(day, hour)) {
@@ -160,9 +160,10 @@ export class DoctorCalendarComponent implements OnInit {
       }
       // Reset the flag after processing
       this.showDialog = false;
-    } else if (this.isWeekend(day)) {
-      console.error('Cannot book appointments on weekend days');
-    }
+    } 
+    // else if (this.isWeekend(day)) {
+    //   console.error('Cannot book appointments on weekend days');
+    // }
   }
 
   isAppointmentScheduled(day: number, hour: number): boolean {
