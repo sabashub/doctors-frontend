@@ -26,7 +26,7 @@ export class RegisterDoctorComponent  implements OnInit{
     this.appService.getCategories().subscribe(
       data => {
         this.categories = data;
-        console.log(this.categories)
+       
       },
       error => {
         console.error('Error fetching categories:', error);
@@ -51,18 +51,21 @@ export class RegisterDoctorComponent  implements OnInit{
 
     this.http.post<any>('http://localhost:5005/api/doctor/register', formData).subscribe(
       data => {
-        console.log('Doctor registered successfully:', data);
+        
         // Clear the form after successful registration
         this.model = {};
 
-    this.router.navigateByUrl('/admin');
+      this.router.navigateByUrl('/admin');
       },
       error => {
         console.error('Error registering doctor:', error);
       }
-    );
+   );
+   this.router.navigateByUrl('/')
 
   }
+
+  
 
   onImageChange(event: any) {
     this.model.image = event.target.files[0];

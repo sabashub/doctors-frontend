@@ -18,8 +18,11 @@
     <div *ngIf="showCategoriesGrid">
      <app-handle-categories></app-handle-categories>
     </div>
+
     <div *ngIf="showDoctorsGrid">
       <app-doctors-grid></app-doctors-grid>
+     
     </div>
+    <div style="min-height:25vh;" *ngIf="!showDoctorsGrid && !showCategoriesGrid && !showRegistration"></div>
   </div>
   

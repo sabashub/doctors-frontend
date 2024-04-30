@@ -113,7 +113,7 @@ export class UserCalendarComponent implements OnInit{
   getUser(){
     this.appService.user$.subscribe(user => {
       this.user = user;
-      console.log('User:', this.user);
+     
       this.userId = user?.id
       this.getAppointmentsByUserId(user?.id)
     });
@@ -171,7 +171,7 @@ export class UserCalendarComponent implements OnInit{
             this.selectedAppointment = null;
           },
           (error) => {
-            console.error('Error deleting appointment:', error);
+           
             alert('Failed to delete appointment. Please try again later.');
           }
         );
@@ -182,7 +182,7 @@ export class UserCalendarComponent implements OnInit{
   // Method to edit the problem of the selected appointment
   editAppointment(): void {
     if (this.selectedAppointment) {
-      console.log("selected", this.selectedAppointment)
+     
       const newProblem = window.prompt('Enter the new problem:', this.selectedAppointment.problem);
       if (newProblem !== null) {
         // Create an updated appointment object with only the problem field updated
@@ -194,7 +194,7 @@ export class UserCalendarComponent implements OnInit{
           doctorId: this.selectedAppointment.doctorId
         };
 
-        console.log("updated", updatedAppointment)
+      
   
         // Make the PUT request to update the appointment's problem
         const apiUrl = `http://localhost:5005/api/Appointment/update/${this.selectedAppointment.id}`;

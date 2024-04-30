@@ -1,7 +1,8 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { isAdmin, isDoctor, isUser } from '../../guard/auth.guard';
 
-import { RouterModule,  } from '@angular/router';
 import { DoctorsComponent } from './pages/doctors/doctors.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -12,25 +13,21 @@ import { DoctorPageComponent } from './pages/doctor-page/doctor-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { DoctorDetailsComponent } from './pages/doctor-details/doctor-details.component';
 
-
 export const routes: Routes = [
-  
-  { path: 'doctors', component: DoctorsComponent,},
-  { path: '', component: MainPageComponent,  },
-  { path: 'registration', component: RegistrationComponent, },
-  { path: 'register-doctor', component: RegisterDoctorComponent, },
+  { path: 'doctors', component: MainPageComponent },
+  { path: '', component: MainPageComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'register-doctor', component: RegisterDoctorComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'user', component: UserPageComponent,  },
-  { path: 'doctor', component: DoctorPageComponent, },
-  { path: 'admin', component: AdminComponent, },
-  { path: 'doctor/:id', component: DoctorDetailsComponent, },
+  { path: 'user', component: UserPageComponent, canActivate: [isUser]},
+  { path: 'doctor', component: DoctorPageComponent,  canActivate: [isDoctor]  },
+  { path: 'admin', component: AdminComponent, canActivate: [isAdmin] }, // Add AuthGuard here
+  { path: 'doctor/:id', component: DoctorDetailsComponent },
   { path: '**', redirectTo: '/' }
-
- 
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
-  export class AppRoutingModule { }
+export class AppRoutingModule { }

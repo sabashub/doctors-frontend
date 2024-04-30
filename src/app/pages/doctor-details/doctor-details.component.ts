@@ -6,6 +6,7 @@ import { DoctorCalendarComponent } from '../../components/doctor-calendar/doctor
 //import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { CategoryComponent } from '../../components/category/category.component';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-doctor-details',
@@ -17,9 +18,10 @@ import { CommonModule } from '@angular/common';
 export class DoctorDetailsComponent implements OnInit{
   doctorId: string = '';
   doctor: Doctor | null = null;
-  doctorNumId: number = 0
+  doctorNumId: number = 0;
+  appointments: any = [];
 
-  constructor(private route: ActivatedRoute, private appService: AppService,) {}
+  constructor(private route: ActivatedRoute, private appService: AppService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -40,4 +42,6 @@ export class DoctorDetailsComponent implements OnInit{
       }
     );
   }
+ 
 }
+

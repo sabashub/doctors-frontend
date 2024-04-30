@@ -27,7 +27,7 @@ export class UserPageComponent implements OnInit {
     this.appService.user$.subscribe(user => {
       this.user = user;
       this.userId = this.user?.id
-      console.log(this.user)
+      
       this.getAppointmentsByUserId(this.userId)
     });
   }
@@ -40,7 +40,7 @@ export class UserPageComponent implements OnInit {
           ...appointment,
           date: new Date(appointment.date)
         }));
-        console.log('Appointments:', this.appointments);
+       
       },
       (error) => {
         console.error('Error fetching appointments:', error);
@@ -55,7 +55,7 @@ export class UserPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
     });
   }
 }

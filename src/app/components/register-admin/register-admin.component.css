@@ -72,3 +72,11 @@ button {
   border-radius: 40px;
   border: 1px solid #ecf2f8;
 }
+.btn-primary {
+  width: 150px;
+  height: 40px;
+  background-color: #053354;
+  border-radius: 50px;
+  color: white;
+  border: none;
+}

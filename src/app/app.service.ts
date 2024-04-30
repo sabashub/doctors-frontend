@@ -21,6 +21,25 @@ export class AppService {
     private userSource = new ReplaySubject<User | null>(1);
     user$ = this.userSource.asObservable();
 
+    isAdmin(): Observable<boolean> {
+      return this.user$.pipe(
+        map(user => user ? user.type === 'Admin' : false)
+      );
+    }
+
+    isDoctor(): Observable<boolean> {
+      return this.user$.pipe(
+        map(user => user ? user.type === 'Doctor' : false)
+      );
+    }
+
+    isUser(): Observable<boolean> {
+      return this.user$.pipe(
+        map(user => user ? user.type === 'User' : false)
+      );
+    }
+    
+
     constructor(private http: HttpClient, private router: Router, ) { }
 
     refreshUser(jwt: string | null  ){
@@ -122,7 +141,6 @@ export class AppService {
     const url = `${environment.apiUrl}/api/categories/${categoryId}`;
     return this.http.put(url, updatedCategory);
   }
-
   deleteCategory(categoryId: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/api/categories/${categoryId}`);
   }

@@ -26,7 +26,7 @@ export class RegisterAdminComponent implements OnInit{
     this.appService.registerAdmin(this.admin)
       .subscribe(
         response => {
-          console.log('Admin registered successfully');
+         
           this.admin = { email: '', password: '' }; 
         },
         error => {
@@ -54,7 +54,7 @@ export class RegisterAdminComponent implements OnInit{
       this.appService.deleteAdmin(id)
         .subscribe(
           response => {
-            console.log(`Admin with ID ${id} deleted successfully`);
+           
             this.getAllAdmins(); // Refresh the admin list after deletion
           },
           error => {
@@ -71,7 +71,7 @@ export class RegisterAdminComponent implements OnInit{
       if (newEmail !== null) {
         this.appService.editAdminEmail(adminId, newEmail).subscribe(
           response => {
-            console.log(`Admin email updated successfully`);
+           
             this.getAllAdmins(); // Refresh admin list
           },
           error => {
@@ -85,7 +85,7 @@ export class RegisterAdminComponent implements OnInit{
       if (newPassword !== null) {
         this.appService.editAdminPassword(adminId, newPassword).subscribe(
           response => {
-            console.log(`Admin password updated successfully`);
+           
             this.getAllAdmins(); // Refresh admin list
           },
           error => {

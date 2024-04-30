@@ -16,12 +16,12 @@ import { Doctor } from '../../models/Doctor';
   styleUrl: './doctor-calendar.component.css',
 })
 export class DoctorCalendarComponent implements OnInit {
-  @Input() doctorId: number = 0; // Input property to receive the doctor's ID
+  @Input() doctorId: number = 0;
   currentMonth: string = '';
   currentYear: number = 2024;
   currentDay: number = 1;
   weekDays: string[] = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
-  hours: number[] = Array.from({ length: 9 }, (_, i) => i + 9); // Hours from 9:00 to 17:00
+  hours: number[] = Array.from({ length: 9 }, (_, i) => i + 9);
   appointments: any[] = [];
   backgroundColor: string = '';
   showDialog = false;
@@ -48,7 +48,7 @@ export class DoctorCalendarComponent implements OnInit {
   }
 
   isMyAppointment(day: number, hour: number): boolean {
-    if (!this.user) return false; // If no user is logged in, return false
+    if (!this.user) return false;
 
     const selectedDate = new Date(
       this.currentYear,
@@ -73,7 +73,7 @@ export class DoctorCalendarComponent implements OnInit {
     this.appService.getDoctorById(doctorId).subscribe(
       (doctor: Doctor) => {
         this.doctor = doctor;
-        console.log('Doctor:', this.doctor);
+        
       },
       (error) => {
         console.error('Error fetching doctor details:', error);
@@ -106,7 +106,7 @@ export class DoctorCalendarComponent implements OnInit {
       });
 
       if (appointmentsForHour.length < 3) {
-        console.log(this.user?.id);
+       
         const appointment: any = {
           date: selectedDate,
           problem: problem,
@@ -117,9 +117,9 @@ export class DoctorCalendarComponent implements OnInit {
           .post('http://localhost:5005/api/Appointment/create', appointment)
           .subscribe(
             (response) => {
-              console.log('Appointment created successfully:', response);
+             
               this.getAppointmentsByDoctorId();
-              console.log(this.appointments);
+             
             },
             (error) => {
               console.error('Error creating appointment:', error);
@@ -151,19 +151,19 @@ export class DoctorCalendarComponent implements OnInit {
   }
 
   isWeekend(day: number): boolean {
-    const weekDayIndex = day % 7; // Calculate the day index within the week
-    return weekDayIndex === 3 || weekDayIndex === 4; // Saturday is 5, Sunday is 6
+    const weekDayIndex = day % 7;
+    return weekDayIndex === 3 || weekDayIndex === 4;
   }
 
   openDialog(hour: number, day: number): void {
     if (!this.isAppointmentScheduled(day, hour)) {
-      this.showDialog = true; // Set flag to true to indicate that dialog should be shown
+      this.showDialog = true;
 
-      // Subscribe to the user$ observable to get the current user object
+
       if (this.showDialog && this.user) {
         const dialogRef = this.dialog.open(DialogComponent, {
           width: '400px',
-          data: { problem: '' }, // Initialize with an empty string or any default value
+          data: { problem: '' },
         });
 
         dialogRef.afterClosed().subscribe((result) => {
@@ -174,7 +174,7 @@ export class DoctorCalendarComponent implements OnInit {
       } else {
         console.error('User is not authorized to book appointments');
       }
-      // Reset the flag after processing
+ 
       this.showDialog = false;
     } else if (this.isWeekend(day)) {
       console.error('Cannot book appointments on weekend days');
@@ -266,14 +266,14 @@ export class DoctorCalendarComponent implements OnInit {
     if (isThirtyDaysMonth) {
       return 30;
     } else if (month === 'February') {
-      // Check for leap year
+ 
       if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-        return 29; // February has 29 days in a leap year
+        return 29;
       } else {
-        return 28; // February has 28 days in a non-leap year
+        return 28;
       }
     } else {
-      return 31; // All other months have 31 days
+      return 31; 
     }
   }
 

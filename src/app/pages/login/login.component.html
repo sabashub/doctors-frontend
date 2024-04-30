@@ -13,6 +13,7 @@
       Password is required
     </span>
     <p style="color: red;"> {{ errorMessages[0] }}</p>
+    <p mat-button color="primary" class="reset-password" (click)="openForgetPasswordDialog()">პაროლის აღდგენა</p>
   </form>
 
   
@@ -20,6 +21,6 @@
 
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="openForgetPasswordDialog()">პაროლის აღდგენა</button>
+  
   <button class="btn" mat-button (click)="login()" *ngIf="showLoginForm">შესვლა</button>
 </mat-dialog-actions>

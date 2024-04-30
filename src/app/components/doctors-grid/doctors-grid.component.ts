@@ -28,7 +28,7 @@ export class DoctorsGridComponent implements OnInit{
       (doctors: Doctor[]) => {
         this.doctors = doctors;
         
-        console.log('Doctors:', this.doctors);
+       
       },
       (error) => {
         console.error('Error fetching doctors:', error);
@@ -48,7 +48,7 @@ export class DoctorsGridComponent implements OnInit{
           () => {
             // Filter out the deleted doctor from the local array
             this.doctors = this.doctors.filter(d => d.id !== doctor.id);
-            console.log('Doctor deleted successfully');
+            
           },
           (error) => {
             console.error('Error deleting doctor:', error);

@@ -30,3 +30,15 @@ h2 {
 .login_container {
   overflow: hidden;
 }
+
+.reset-password {
+  position: absolute;
+  right: 20px;
+  bottom: -40px;
+  color: black;
+  cursor: pointer;
+}
+
+form {
+  position: relative;
+}
